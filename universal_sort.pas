@@ -38,7 +38,7 @@ procedure swap_bytes_array(a, b : pointer; size : integer);
 var
     i : integer;
 begin
-    for i := 0 to size do
+    for i := 0 to size-1 do
         swap_bytes(p_add(a, i), p_add(b, i));
 end;
 
@@ -49,19 +49,19 @@ end;
 // comp_foo : comparator function
 procedure sort(ptr : pointer; size : integer; el_sz : integer; comp : comp_foo);
 var
-    i, j : integer;
-    elem_1, elem_2, max_el : pointer;
+    k, j : integer;
+    elem_k, elem_j, elem_max : pointer;
 begin
-    for i := 0 to size-2 do begin
-        elem_1 := get_el(ptr, i, el_sz);
-        max_el := elem_1;
-        for j := i+1 to size-1 do begin
-            elem_2 := get_el(ptr, j, el_sz);
-            if comp(elem_2, max_el) then begin
-                max_el := elem_2;
+    for k := 0 to size-2 do begin
+        elem_k := get_el(ptr, k, el_sz);
+        elem_max := elem_k;
+        for j := k+1 to size-1 do begin
+            elem_j := get_el(ptr, j, el_sz);
+            if comp(elem_j, elem_max) then begin
+                elem_max := elem_j;
             end;
         end;
-        swap_bytes_array(elem_1, max_el, el_sz);
+        swap_bytes_array(elem_k, elem_max, el_sz);
     end;
 end;
 
@@ -81,7 +81,9 @@ function comp_int(a, b : pointer) : boolean;
 type
     int_ptr = ^integer;
 begin
-    //writeln(int_ptr(a)^, ' ', int_ptr(b)^);
+    // 1) typecast to integer pointer
+    // 2) dereference
+    // 3) compare
     comp_int := int_ptr(a)^ > int_ptr(b)^;
 end;
 
@@ -91,10 +93,10 @@ var
     i, N : integer;
 begin
 
-    N := 15;
+    N := 10;
     setlength(my_arr, N);
 
-    for i := 0 to high(my_arr) do
+    for i := low(my_arr) to high(my_arr) do
         my_arr[i] := random(100);
 
     print_array(my_arr);
