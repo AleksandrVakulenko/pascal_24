@@ -72,9 +72,9 @@ type
 
 function create_random_vec3() : vec3;
 begin
-    create_random_vec3.x := random(10);
-    create_random_vec3.y := random(10);
-    create_random_vec3.z := random(10);
+    create_random_vec3.x := random*10;
+    create_random_vec3.y := random*10;
+    create_random_vec3.z := random*10;
 end;
 
 function vec3_norm(a : vec3) : real;
