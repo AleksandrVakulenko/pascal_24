@@ -1,8 +1,8 @@
 program sort_for_vec3_type;
 {$APPTYPE CONSOLE}
 uses
-  usort_lib in 'usort_lib.pas';
-
+  //usort_lib in 'usort_lib.pas';
+    usort_lib;
 
 // ------------------------------VEC3---------------------------------------
 type
